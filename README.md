@@ -1,101 +1,101 @@
-# tpl
-Programming language
+# CFPL Interpreter
 
-CFPL Interpreter - Modular Structure
-This document outlines the modular structure of the CFPL (Custom Programming Language) interpreter.
-File Structure
+A modular interpreter for a Custom Functional Programming Language (CFPL) with a web interface powered by [Eel](https://github.com/ChrisKnott/Eel).
+
+---
+
+## 📁 File Structure
+
 cfpl_interpreter/
-├── main.py              # Entry point and Eel interface
-├── interpreter.py       # Main interpreter orchestrator
-├── lexer.py            # Lexical analyzer (tokenizer)
-├── parser.py           # Syntax analyzer (AST generator)
-├── evaluator.py        # AST evaluator/executor
-├── token_types.py      # Token definitions and types
-├── exceptions.py       # Custom exception classes
-├── config.py          # Configuration constants
-└── web/               # Web interface files
-    └── index.html
-Module Responsibilities
-1. token_types.py
+├── main.py # Entry point and Eel interface
+├── interpreter.py # Main interpreter orchestrator
+├── lexer.py # Lexical analyzer (tokenizer)
+├── parser.py # Syntax analyzer (AST generator)
+├── evaluator.py # AST evaluator/executor
+├── token_types.py # Token definitions and types
+├── exceptions.py # Custom exception classes
+├── config.py # Configuration constants
+└── web/ # Web interface files
+└── index.html
 
-Defines TokenType enum with all token types
-Implements Token class for token representation
-Purpose: Central definition of all language tokens
 
-2. lexer.py
+---
 
-Contains CFPLLexer class
-Responsible for tokenizing source code
-Handles string parsing, number parsing, identifier recognition
-Purpose: Converts raw source code into tokens
+## 🧩 Module Responsibilities
 
-3. parser.py
+### `token_types.py`
+- Defines the `TokenType` enum with all token types
+- Implements the `Token` class for token representation  
+**Purpose:** Centralized definition of all language tokens
 
-Contains CFPLParser class
-Implements recursive descent parser
-Generates Abstract Syntax Tree (AST)
-Purpose: Converts tokens into structured AST
+### `lexer.py`
+- Contains `CFPLLexer` class
+- Responsible for tokenizing source code
+- Handles string parsing, number parsing, and identifier recognition  
+**Purpose:** Converts raw source code into tokens
 
-4. evaluator.py
+### `parser.py`
+- Contains `CFPLParser` class
+- Implements a recursive descent parser
+- Generates the Abstract Syntax Tree (AST)  
+**Purpose:** Converts tokens into structured AST
 
-Contains CFPLEvaluator class
-Executes the AST
-Manages variable state and program execution
-Purpose: Actually runs the parsed program
+### `evaluator.py`
+- Contains `CFPLEvaluator` class
+- Executes the AST
+- Manages variable state and program execution  
+**Purpose:** Executes parsed CFPL programs
 
-5. interpreter.py
+### `interpreter.py`
+- Contains `CFPLInterpreter` class
+- Orchestrates lexer, parser, and evaluator
+- Provides a high-level interface for code execution  
+**Purpose:** Acts as the main interface for interpreting CFPL code
 
-Contains CFPLInterpreter class
-Orchestrates lexer, parser, and evaluator
-Provides high-level interface for code execution
-Purpose: Main interface for running CFPL code
+### `exceptions.py`
+- Defines custom exception classes with line number tracking  
+**Purpose:** Structured and user-friendly error reporting
 
-6. exceptions.py
+### `config.py`
+- Holds configuration constants and mappings  
+**Purpose:** Centralized and reusable configuration data
 
-Custom exception classes for better error handling
-Includes line number information
-Purpose: Structured error reporting
+### `main.py`
+- Entry point of the application
+- Sets up the Eel web interface  
+**Purpose:** Starts the application and connects UI with the interpreter
 
-7. config.py
+---
 
-Configuration constants and settings
-Default values and mappings
-Purpose: Centralized configuration
+## 🚀 Key Features
 
-8. main.py
+### ✅ Separation of Concerns
+- **Lexing**: Pure tokenization logic  
+- **Parsing**: Syntax analysis and AST generation  
+- **Evaluation**: Program execution and state management  
+- **Interface**: Web interface integration via Eel
 
-Entry point of the application
-Eel web interface setup
-Purpose: Application startup and web interface
+### ⚠️ Error Handling
+- Custom exception hierarchy
+- Line number tracking for debugging
+- Clear and informative error messages
 
-Key Improvements
-Separation of Concerns
+### 🔧 Maintainability
+- Each module has a single responsibility
+- Easy to test and debug individual components
+- Clean interfaces between system parts
 
-Lexing: Pure tokenization logic
-Parsing: Syntax analysis and AST generation
-Evaluation: Program execution and state management
-Interface: Web interface and user interaction
+### 🧱 Extensibility
+- Add new language features without disrupting structure
+- Modular architecture supports scalable enhancements
+- Centralized configurations simplify updates
 
-Error Handling
+---
 
-Custom exception hierarchy
-Line number tracking
-Better error messages
+## 🛠️ Usage
 
-Maintainability
-
-Each module has a single responsibility
-Easy to test individual components
-Clear interfaces between modules
-
-Extensibility
-
-Easy to add new language features
-Modular design allows selective enhancement
-Configuration externalized
-
-Usage
-pythonfrom interpreter import CFPLInterpreter
+```python
+from interpreter import CFPLInterpreter
 
 # Create interpreter instance
 interpreter = CFPLInterpreter()
@@ -110,19 +110,36 @@ STOP
 
 result = interpreter.run(code)
 print(result)  # Output: Hello World
-Testing Individual Modules
-Each module can be tested independently:
-python# Test lexer
+
+🧪 Testing Individual Modules
+Tokenizer (Lexer)
+
 from lexer import CFPLLexer
 lexer = CFPLLexer("VAR x AS INT")
 tokens = lexer.tokenize()
+print(tokens)
 
-# Test parser  
+Parser
 from parser import CFPLParser
 parser = CFPLParser(tokens)
 ast = parser.parse_program()
+print(ast)
 
-# Test evaluator
+Evaluator
 from evaluator import CFPLEvaluator
 evaluator = CFPLEvaluator()
 result = evaluator.execute_program(ast)
+print(result)
+
+🌐 Web Interface
+Run the app with:
+
+python main.py
+The app will launch a local web interface (index.html) using Eel to run CFPL code.
+
+📜 License
+This project is licensed under the MIT License.
+
+🤝 Contributions
+Pull requests and suggestions are welcome. Feel free to fork the project and submit a PR.
+
