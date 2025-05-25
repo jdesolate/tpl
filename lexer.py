@@ -86,9 +86,10 @@ class CFPLLexer:
             if self.peek() == '\0':
                 break
             
-            # Comments
-            if self.peek() == '*':
-                self.advance()
+            # Comments: Only treat ** as comment start
+            if self.peek() == '*' and self.peek(1) == '*':
+                self.advance()  # Skip first *
+                self.advance()  # Skip second *
                 comment = self.read_comment()
                 self.tokens.append(Token(TokenType.COMMENT, comment, self.current_line))
                 continue
