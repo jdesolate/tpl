@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CFPL Interpreter</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+    <script src="/eel.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 class="title">
+          <span class="title-main">TPL</span>
+          <span class="title-sub">Interpreter</span>
+        </h1>
+        <p class="subtitle">Tampus CFPL - Web Interpreter</p>
+      </header>
+
+      <div class="main-content">
+        <!-- Language Reference Section -->
+        <div class="reference-section" id="referenceSection">
+          <div class="section-header">
+            <h3>CFPL Language Reference</h3>
+            <button id="toggleReference" class="btn btn-small">Hide</button>
+          </div>
+          <div class="reference-content">
+            <div class="reference-grid">
+              <div class="reference-card">
+                <h4>Data Types</h4>
+                <ul>
+                  <li><strong>INT</strong> - Integer numbers (32-bit)</li>
+                  <li><strong>FLOAT</strong> - Decimal numbers (64-bit)</li>
+                  <li><strong>CHAR</strong> - Single character</li>
+                  <li><strong>BOOL</strong> - TRUE or FALSE</li>
+                </ul>
+              </div>
+              <div class="reference-card">
+                <h4>Operators</h4>
+                <ul>
+                  <li><strong>Arithmetic:</strong> +, -, *, /, %</li>
+                  <li><strong>Comparison:</strong> >, <, >=, <=, ==, <></li>
+                  <li><strong>Logical:</strong> AND, OR, NOT</li>
+                  <li>
+                    <strong>Other:</strong> & (concatenation), # (newline)
+                  </li>
+                </ul>
+              </div>
+              <div class="reference-card">
+                <h4>Structure</h4>
+                <ul>
+                  <li>Variable declarations at top</li>
+                  <li>Code inside START...STOP block</li>
+                  <li>Comments start with *</li>
+                  <li>Sharp (#) for newlines</li>
+                  <li>[#] for literal newlines in strings</li>
+                </ul>
+              </div>
+              <div class="reference-card">
+                <h4>Examples</h4>
+                <div class="code-example">
+                  <code
+                    >VAR x, y=10 AS INT<br />
+                    START<br />
+                    &nbsp;&nbsp;INPUT: x<br />
+                    &nbsp;&nbsp;OUTPUT: "Result: " & (x + y)<br />
+                    STOP</code
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Code Editor Section -->
+        <div class="editor-section">
+          <div class="section-header">
+            <h2>Code Editor</h2>
+            <div class="editor-controls">
+              <button id="clearCode" class="btn btn-secondary">Clear</button>
+              <button id="loadExample" class="btn btn-secondary">
+                Load Example
+              </button>
+              <button id="runCode" class="btn btn-primary">
+                <span class="btn-icon">▶</span>
+                Run Code
+              </button>
+            </div>
+          </div>
+
+          <div class="editor-container">
+            <textarea
+              id="codeEditor"
+              placeholder="Enter your CFPL code here..."
+            >
+* Sample CFPL Program
+VAR abc, b, c AS INT
+VAR x, w_23='w' AS CHAR
+VAR t="TRUE" AS BOOL
+
+START
+    abc=b=10
+    w_23='a'
+    * this is a comment
+    OUTPUT: abc & "hi" & b & "#" & w_23 & "[#]"
+STOP</textarea
+            >
+          </div>
+        </div>
+
+        <!-- Input Section -->
+        <div class="input-section">
+          <div class="section-header">
+            <h3>Input Data</h3>
+            <small class="help-text"
+              >Comma-separated values for INPUT statements</small
+            >
+          </div>
+          <div class="input-container">
+            <input
+              type="text"
+              id="inputData"
+              placeholder="e.g., 10, hello, 3.14"
+              class="input-field"
+            />
+          </div>
+        </div>
+
+        <!-- Output and Variables Section -->
+        <div class="results-container">
+          <!-- Output Section -->
+          <div class="output-section">
+            <div class="section-header">
+              <h3>Output</h3>
+              <button id="clearOutput" class="btn btn-small">Clear</button>
+            </div>
+            <div class="output-container">
+              <pre id="output" class="output-content">
+Ready to execute CFPL code...</pre
+              >
+            </div>
+          </div>
+
+          <!-- Variables Section -->
+          <div class="variables-section">
+            <div class="section-header">
+              <h3>Variables</h3>
+              <button id="refreshVars" class="btn btn-small">Refresh</button>
+            </div>
+            <div class="variables-container">
+              <div id="variables" class="variables-content">
+                <p class="no-vars">No variables declared</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <div class="status-left">
+          <span id="statusText">Ready</span>
+        </div>
+        <div class="status-right">
+          <span class="status-item">Lines: <span id="lineCount">8</span></span>
+          <span class="status-item">CFPL v1.0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+      <div class="loading-spinner"></div>
+      <p>Executing CFPL code...</p>
+    </div>
+
+    <!-- Include the JavaScript file -->
+    <script src="cfpl-interpreter.js"></script>
+  </body>
+</html>
