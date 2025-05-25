@@ -1,6 +1,6 @@
-# CPL - Configuration Processing Language
+# TPL - Tampus CFPL
 
-A powerful, flexible programming language designed for configuration management and data processing with built-in support for modern development workflows. Features a web-based interpreter interface for easy access and testing.
+My first programming language designed for data processing with built-in support for modern development workflows. Features a web-based interpreter interface for easy access and testing.
 
 ## 🚀 Features
 
@@ -19,7 +19,7 @@ A powerful, flexible programming language designed for configuration management 
 ## 🛠️ Installation
 
 ```bash
-git clone https://github.com/yourusername/cpl.git
+git clone https://github.com/jdesolate/tpl.git
 cd cpl
 pip install eel
 ```
@@ -87,17 +87,12 @@ cpl/
 4. Test your changes with both Python API and web interface
 5. Commit your changes (`git commit -m 'Add amazing feature'`)
 6. Push to the branch (`git push origin feature/amazing-feature`)
-7. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+7. Open a Pull Request 
 
 ## 🤝 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/cpl/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/cpl/discussions)
-- **Documentation**: [Project Wiki](https://github.com/yourusername/cpl/wiki)
+- **Issues**: [GitHub Issues](https://github.com/jdesolate/tpl/issues) 
+- **Documentation**: [Project Wiki](https://github.com/jdesolate/tpl/wiki)
 
 ## 🗺️ Roadmap
 
@@ -111,4 +106,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**CPL** - Making configuration management and data processing simple and powerful through an intuitive desktop application.
+**CPL** - Making data processing simple and powerful through an intuitive desktop application.
