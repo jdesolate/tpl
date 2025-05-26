@@ -1,0 +1,66 @@
+Conditionals:
+VAR secret_number=7, user_guess AS INT
+VAR is_correct AS BOOL
+
+START
+    OUTPUT: "Welcome to the Number Guessing Game!" & #
+    OUTPUT: "I'm thinking of a number between 1 and 10" & #
+    OUTPUT: "Enter your guess: "
+    INPUT: user_guess
+    OUTPUT: user_guess
+    
+    is_correct = user_guess == secret_number
+    
+    IF (is_correct) START
+        OUTPUT: # & "Congratulations! You guessed it right!" & #
+        OUTPUT: "The number was " & secret_number & #
+    STOP
+    
+    IF (NOT is_correct) START
+        OUTPUT: "Sorry, that's not correct." & #
+        OUTPUT: "The secret number was " & secret_number & #
+        
+        IF (user_guess > secret_number) START
+            OUTPUT: "Your guess was too high." & #
+        STOP
+        
+        IF (user_guess < secret_number) START
+            OUTPUT: "Your guess was too low." & #
+        STOP
+    STOP
+    
+    OUTPUT: "Thanks for playing!" & #
+STOP
+
+Loop:
+VAR number, factorial=1, counter=1 AS INT
+VAR continue_calc AS BOOL
+
+START
+    OUTPUT: "Factorial Calculator" & #
+    OUTPUT: "Enter a positive number: "
+    INPUT: number
+    OUTPUT: number
+
+    IF (number < 0) START
+        OUTPUT: "Error: Please enter a positive number!" & #
+        factorial = -1
+    STOP
+    ELSE START
+        IF (number == 0) START
+            OUTPUT: "Factorial of 0 is 1" & #
+        STOP
+        ELSE START
+            OUTPUT: "Calculating factorial of " & number & "..." & #
+            
+            WHILE (counter <= number) START
+                factorial = factorial * counter
+                OUTPUT: "Step " & counter & ": " & factorial & #
+                counter = counter + 1
+            STOP
+            
+            OUTPUT: #
+            OUTPUT: "Final Result: " & number & "! = " & factorial & #
+        STOP
+    STOP
+STOP

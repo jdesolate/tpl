@@ -28,11 +28,10 @@
           <span class="title-main">TPL</span>
           <span class="title-sub">Interpreter</span>
         </h1>
-        <p class="subtitle">Tampus CFPL - Web Interpreter</p>
+        <p class="subtitle">Tampus CFPL - Python Interpreter</p>
       </header>
 
       <div class="main-content">
-        <!-- Language Reference Section -->
         <div class="reference-section" id="referenceSection">
           <div class="section-header">
             <h3>CFPL Language Reference</h3>
@@ -70,22 +69,47 @@
                   <li>[#] for literal newlines in strings</li>
                 </ul>
               </div>
-              <div class="reference-card">
-                <h4>Examples</h4>
+              <div class="reference-card examples-card">
+                <div class="examples-header">
+                  <h4>Interactive Examples</h4>
+                  <div class="example-controls">
+                    <button class="example-btn active" data-example="input">
+                      Input/Output
+                    </button>
+                    <button class="example-btn" data-example="conditions">
+                      Conditions
+                    </button>
+                    <button class="example-btn" data-example="loops">
+                      Loops
+                    </button>
+                  </div>
+                </div>
+                <div class="example-info" id="exampleInfo">
+                  Basic variable declaration and output example
+                </div>
                 <div class="code-example">
-                  <code
-                    >VAR x, y=10 AS INT<br />
-                    START<br />
-                    &nbsp;&nbsp;INPUT: x<br />
-                    &nbsp;&nbsp;OUTPUT: "Result: " & (x + y)<br />
-                    STOP</code
+                  <button class="load-example-btn" id="loadToEditor">
+                    Load to Editor
+                  </button>
+                  <pre id="exampleCode">
+** Sample CFPL Program
+VAR abc, b, c AS INT
+VAR x='_', w_23='w' AS CHAR
+VAR t=TRUE AS BOOL
+
+START
+    abc=b=10
+    w_23='a' 
+    ** this is a comment
+    OUTPUT: abc & "hi" & b & # & w_23 & "#"
+STOP</pre
                   >
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- Code Editor Section -->
+
         <div class="editor-section">
           <div class="section-header">
             <h2>Code Editor</h2>
@@ -106,22 +130,22 @@
               id="codeEditor"
               placeholder="Enter your CFPL code here..."
             >
-* Sample CFPL Program
-VAR abc, b, c AS INT
-VAR x, w_23='w' AS CHAR
-VAR t="TRUE" AS BOOL
+              ** Sample CFPL Program
+              VAR abc, b, c AS INT
+              VAR x, w_23='w' AS CHAR
+              VAR t="TRUE" AS BOOL
 
-START
-    abc=b=10
-    w_23='a'
-    * this is a comment
-    OUTPUT: abc & "hi" & b & "#" & w_23 & "[#]"
-STOP</textarea
+              START
+                  abc=b=10
+                  w_23='a'
+                  ** this is a comment
+                  OUTPUT: abc & "hi" & b & # & w_23 & "#"
+              STOP
+          </textarea
             >
           </div>
         </div>
 
-        <!-- Input Section -->
         <div class="input-section">
           <div class="section-header">
             <h3>Input Data</h3>
@@ -139,9 +163,7 @@ STOP</textarea
           </div>
         </div>
 
-        <!-- Output and Variables Section -->
         <div class="results-container">
-          <!-- Output Section -->
           <div class="output-section">
             <div class="section-header">
               <h3>Output</h3>
@@ -149,12 +171,11 @@ STOP</textarea
             </div>
             <div class="output-container">
               <pre id="output" class="output-content">
-Ready to execute CFPL code...</pre
+ Ready to execute CFPL code...</pre
               >
             </div>
           </div>
 
-          <!-- Variables Section -->
           <div class="variables-section">
             <div class="section-header">
               <h3>Variables</h3>
@@ -169,7 +190,6 @@ Ready to execute CFPL code...</pre
         </div>
       </div>
 
-      <!-- Status Bar -->
       <div class="status-bar">
         <div class="status-left">
           <span id="statusText">Ready</span>
@@ -181,13 +201,11 @@ Ready to execute CFPL code...</pre
       </div>
     </div>
 
-    <!-- Loading Overlay -->
     <div id="loadingOverlay" class="loading-overlay hidden">
       <div class="loading-spinner"></div>
       <p>Executing CFPL code...</p>
     </div>
 
-    <!-- Include the JavaScript file -->
     <script src="cfpl-interpreter.js"></script>
   </body>
 </html>
